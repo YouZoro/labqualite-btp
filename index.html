@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LabQualité BTP - Contrôle Qualité Laboratoire</title>
+    <!-- CSS Design System Import -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- PC EMBEDDED SMARTPHONE SHELL -->
+    <div class="phone-simulator-container">
+        <div class="android-device">
+            <div class="android-screen">
+                
+                <!-- Dynamic Android Top Status Bar -->
+                <div class="android-status-bar">
+                    <span id="status-clock">18:22</span>
+                    <div class="status-icons">
+                        <span id="status-wifi">📶</span>
+                        <span id="status-battery">🔋 98%</span>
+                    </div>
+                </div>
+
+                <!-- Main App Header -->
+                <header class="app-header">
+                    <div class="app-brand">
+                        <div class="app-logo" style="background:none; box-shadow:none;"><img src="logo_btp.png" alt="Logo" style="width:100%; height:100%; object-fit:contain; border-radius:8px;"></div>
+                        <div class="app-title">LabQualité BTP</div>
+                    </div>
+                    <div class="header-actions">
+                        <button id="theme-toggle-btn" class="back-btn" title="Changer le thème">🌓</button>
+                    </div>
+                </header>
+
+                <!-- Scrollable Body Content Wrapper -->
+                <main class="main-content" id="main-content-scroll">
+                    
+                    <!-- ========================================== -->
+                    <!-- 1. ACCUEIL PANEL                           -->
+                    <!-- ========================================== -->
+                    <div class="screen-panel active" id="panel-accueil">
+                        <div class="welcome-header">
+                            <span class="lab-subtitle" id="label-nom-labo-home">Laboratoire BTP National</span>
+                            <h2 id="home-greeting">Bonjour, Technicien</h2>
+                        </div>
+
+                        <!-- Real-time Weather Card -->
+                        <div class="weather-card">
+                            <div class="weather-details">
+                                <span class="weather-temp" id="weather-temp">24°C</span>
+                                <span class="weather-desc" id="weather-desc">Ciel dégagé - Conditions idéales</span>
+                                <span class="weather-meta" id="weather-date">Mardi, 26 Mai 2026</span>
+                            </div>
+                            <span class="weather-icon" id="weather-icon">☀️</span>
+                        </div>
+
+                        <!-- Category Cards Grid -->
+                        <div class="section-header">
+                            <h3 class="section-title">Catégories d'essais</h3>
+                        </div>
+                        <div class="categories-grid">
+                            <div class="category-card cat-sol" onclick="switchTab('essais', 'sol')">
+                                <div class="category-icon">🌍</div>
+                                <span class="category-name">Essais Sol</span>
+                                <span class="category-count">13 Essais</span>
+                            </div>
+                            <div class="category-card cat-granulat" onclick="switchTab('essais', 'granulat')">
+                                <div class="category-icon">🪨</div>
+                                <span class="category-name">Granulats</span>
+                                <span class="category-count">8 Essais</span>
+                            </div>
+                            <div class="category-card cat-beton" onclick="switchTab('essais', 'beton')">
+                                <div class="category-icon">🏗️</div>
+                                <span class="category-name">Essais Béton</span>
+                                <span class="category-count">10 Essais</span>
+                            </div>
+                            <div class="category-card cat-enrobe" onclick="switchTab('essais', 'enrobe')">
+                                <div class="category-icon">🛣️</div>
+                                <span class="category-name">Enrobés</span>
+                                <span class="category-count">8 Essais</span>
+                            </div>
+                            <div class="category-card cat-divers" onclick="switchTab('essais', 'divers')" style="grid-column: span 2;">
+                                <div class="category-icon">🧱</div>
+                                <span class="category-name">Matériaux Divers</span>
+                                <span class="category-count">5 Essais</span>
+                            </div>
+                        </div>
+
+                        <!-- Favorites Carousels -->
+                        <div class="section-header">
+                            <h3 class="section-title">Vos Essais Favoris</h3>
+                        </div>
+                        <div class="horizontal-scroll-list" id="home-favorites-list">
+                            <!-- Populated via JS -->
+                            <div class="empty-state">Aucun essai en favori. Marquez des essais avec ★ pour les retrouver ici.</div>
+                        </div>
+
+                        <!-- Recent calculations -->
+                        <div class="section-header">
+                            <h3 class="section-title">Calculs Récents</h3>
+                            <span class="section-action" onclick="switchTab('rapports')">Voir tout</span>
+                        </div>
+                        <div class="reports-list" id="home-recents-list" style="margin-bottom: 24px;">
+                            <!-- Populated via JS -->
+                            <div class="empty-state">Aucun calcul effectué récemment.</div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- 2. ESSAIS LIST PANEL                       -->
+                    <!-- ========================================== -->
+                    <div class="screen-panel" id="panel-essais">
+                        <div class="search-container">
+                            <div class="search-bar-wrapper">
+                                <span class="search-icon">🔍</span>
+                                <input type="text" class="search-input" id="search-bar" placeholder="Rechercher un essai ou norme...">
+                            </div>
+                            <div class="filter-chips">
+                                <div class="chip active" onclick="filterByCategory('all', this)">Tous</div>
+                                <div class="chip" onclick="filterByCategory('sol', this)">🌍 Sols</div>
+                                <div class="chip" onclick="filterByCategory('granulat', this)">🪨 Granulats</div>
+                                <div class="chip" onclick="filterByCategory('beton', this)">🏗️ Béton</div>
+                                <div class="chip" onclick="filterByCategory('enrobe', this)">🛣️ Enrobés</div>
+                                <div class="chip" onclick="filterByCategory('divers', this)">🧱 Divers</div>
+                            </div>
+                        </div>
+
+                        <div class="tests-list" id="tests-list-container">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- 3. CALCULATRICES GRID PANEL                -->
+                    <!-- ========================================== -->
+                    <div class="screen-panel" id="panel-calculatrices">
+                        <div class="welcome-header">
+                            <span class="lab-subtitle">Hub Calculs Scientifiques</span>
+                            <h2>11 Calculatrices BTP</h2>
+                        </div>
+                        
+                        <div class="calculators-grid" id="calculators-grid-container" style="margin-bottom: 24px;">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- 4. RAPPORTS HISTORY PANEL                  -->
+                    <!-- ========================================== -->
+                    <div class="screen-panel" id="panel-rapports">
+                        <div class="welcome-header">
+                            <span class="lab-subtitle">Procès-verbaux d'essais</span>
+                            <h2>Historique & Rapports</h2>
+                        </div>
+
+                        <!-- Data Actions Card -->
+                        <div class="category-card" style="flex-direction: row; justify-content: space-around; padding: 12px; margin-bottom: 4px;">
+                            <button class="btn-secondary" onclick="exportDatabase()" style="flex: 1; margin-right: 4px; font-size: 11px; height: 36px; padding: 0;">📤 Backup JSON</button>
+                            <button class="btn-secondary" id="import-trigger-btn" style="flex: 1; margin-left: 4px; font-size: 11px; height: 36px; padding: 0;">📥 Importer JSON</button>
+                            <input type="file" id="import-db-file" style="display: none;" accept=".json">
+                        </div>
+
+                        <div class="reports-list" id="reports-list-container" style="margin-bottom: 24px;">
+                            <!-- Populated via JS -->
+                            <div class="empty-state">Aucun rapport sauvegardé. Réalisez un calcul dans la fiche d'un essai pour l'enregistrer dans l'historique.</div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- 5. PARAMÈTRES PANEL                        -->
+                    <!-- ========================================== -->
+                    <div class="screen-panel" id="panel-parametres">
+                        <div class="welcome-header">
+                            <span class="lab-subtitle">Configuration</span>
+                            <h2>Paramètres de l'application</h2>
+                        </div>
+
+                        <div class="settings-section-title">Informations du Laboratoire</div>
+                        <div class="settings-list">
+                            <div class="form-group">
+                                <label for="settings-lab-name">Nom du Laboratoire</label>
+                                <input type="text" class="form-input" id="settings-lab-name" value="Laboratoire BTP National">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-technician">Technicien par Défaut</label>
+                                <input type="text" class="form-input" id="settings-technician" value="Technicien Supérieur">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-license">Numéro de Matricule / Agrément</label>
+                                <input type="text" class="form-input" id="settings-license" value="LAB-2026-X04">
+                            </div>
+                        </div>
+
+                        <div class="settings-section-title">Préférences & Thème</div>
+                        <div class="settings-list">
+                            <div class="setting-row">
+                                <div class="setting-label">
+                                    <span class="setting-title">Mode Sombre</span>
+                                    <span class="setting-desc">Activer le thème sombre MD3</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="dark-mode-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section-title">Gestion de Stockage</div>
+                        <div class="settings-list" style="margin-bottom: 24px;">
+                            <div class="setting-row">
+                                <div class="setting-label">
+                                    <span class="setting-title" style="color: var(--md-error);">Réinitialiser la Base de Données</span>
+                                    <span class="setting-desc">Efface tous les calculs enregistrés localement</span>
+                                </div>
+                                <button class="btn-secondary" onclick="resetDatabase()" style="border-color: var(--md-error); color: var(--md-error); height: 36px; padding: 0 12px; font-size: 11px;">Effacer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+
+                <!-- Floating Action Button (Quick Launch) -->
+                <div class="fab-quick-launch" id="fab-calculator" title="Nouveau calcul rapide">
+                    ➕
+                </div>
+
+                <!-- Bottom Navigation Bar -->
+                <nav class="bottom-navigation">
+                    <div class="nav-item active" onclick="switchTab('accueil')">
+                        <div class="nav-icon-container">🏠</div>
+                        <span class="nav-label">Accueil</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab('essais')">
+                        <div class="nav-icon-container">📝</div>
+                        <span class="nav-label">Essais</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab('calculatrices')">
+                        <div class="nav-icon-container">🧮</div>
+                        <span class="nav-label">Calculs</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab('rapports')">
+                        <div class="nav-icon-container">📋</div>
+                        <span class="nav-label">Rapports</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab('parametres')">
+                        <div class="nav-icon-container">⚙️</div>
+                        <span class="nav-label">Réglages</span>
+                    </div>
+                </nav>
+
+                <!-- Simulated Smartphone Bottom Home Line -->
+                <div class="android-home-pill"></div>
+
+                <!-- ========================================== -->
+                <!-- DYNAMIC FULL-SCREEN DETAIL PANE            -->
+                <!-- ========================================== -->
+                <div class="detail-pane" id="test-detail-pane">
+                    <div class="pane-header">
+                        <div class="back-btn" onclick="closeTestDetails()">⬅️</div>
+                        <div class="pane-header-titles">
+                            <span class="pane-header-title" id="detail-header-title">Essai Proctor</span>
+                            <span class="pane-header-norm" id="detail-header-norm">NM 13.1.094</span>
+                        </div>
+                        <div class="fav-btn" id="detail-fav-btn" style="font-size: 22px; padding: 4px;">★</div>
+                    </div>
+
+                    <div class="pane-scrollable-content" id="detail-pane-scroll">
+                        
+                        <!-- Section 1: Presentation -->
+                        <div class="detail-section" id="sec-presentation">
+                            <div class="section-title-bar">ℹ️ Fiche de Présentation</div>
+                            <div class="section-body" id="detail-presentation-text">
+                                <!-- Dynamic -->
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Equipment -->
+                        <div class="detail-section" id="sec-equipments">
+                            <div class="section-title-bar">🛠️ Équipements Requis</div>
+                            <div class="section-body">
+                                <ul class="equipment-list" id="detail-equipments-list">
+                                    <!-- Dynamic -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Step-by-step -->
+                        <div class="detail-section" id="sec-procedure">
+                            <div class="section-title-bar">📋 Procédure Opératoire</div>
+                            <div class="section-body">
+                                <div class="step-list" id="detail-procedure-list">
+                                    <!-- Dynamic -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Integrated Calculator -->
+                        <div class="detail-section" id="sec-calculator">
+                            <div class="section-title-bar">🧮 Calculatrice de l'Essai</div>
+                            <div class="section-body" id="detail-calculator-form-container">
+                                <!-- Dynamic dynamic form -->
+                            </div>
+                        </div>
+
+                        <!-- Section 5: YouTube tutorial -->
+                        <div class="detail-section" id="sec-youtube">
+                            <div class="section-title-bar">🎬 Didacticiel Vidéo</div>
+                            <div class="media-card">
+                                <div class="media-card-title">🎥 Démonstration Pratique</div>
+                                <span class="media-card-desc">Visualisez le déroulement réel de cet essai effectué par des techniciens qualifiés en laboratoire routier et géotechnique.</span>
+                                <button class="btn-primary btn-media-youtube" id="detail-youtube-btn">🎬 Consulter sur YouTube</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 6: AI video animation -->
+                        <div class="detail-section" id="sec-aivideo">
+                            <div class="section-title-bar">🤖 Animation IA (Google Veo)</div>
+                            <div class="media-card">
+                                <div class="media-card-title">✨ Modélisation IA en 3D</div>
+                                <span class="media-card-desc">Générez une animation schématique explicative de 10 secondes montrant la procédure avec Google AI Studio - Veo 3.</span>
+                                <div class="prompt-box" id="detail-ai-prompt" onclick="navigator.clipboard.writeText(this.innerText); alert('Prompt copié avec succès !');">
+                                    Create a 10-second educational animation showing laboratory procedure...
+                                </div>
+                                <button class="btn-primary btn-media-ai" id="detail-ai-btn">🤖 Ouvrir Google Veo (AI Studio)</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 7: Acceptance thresholds -->
+                        <div class="detail-section" id="sec-acceptance" style="margin-bottom: 24px;">
+                            <div class="section-title-bar">⚖️ Critères de Conformité</div>
+                            <div class="section-body" id="detail-acceptance-container">
+                                <!-- Dynamic -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- DIALOG QUICK CALCULATOR SHEET              -->
+                <!-- ========================================== -->
+                <div class="dialog-overlay" id="quick-calc-dialog">
+                    <div class="dialog-sheet">
+                        <div class="dialog-header">
+                            <span class="dialog-title">Nouvelle Saisie Rapide</span>
+                            <span class="dialog-close" onclick="closeQuickCalcDialog()">❌</span>
+                        </div>
+                        <span style="font-size: 11px; color: var(--md-outline); margin-top: -8px;">Sélectionnez une calculatrice pour saisir vos mesures immédiatement.</span>
+                        <div class="dialog-grid" id="quick-calc-grid">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================== -->
+    <!-- PROFESSIONAL PRINT-ONLY REPORT CONTAINER (HIDDEN IN GRAPHIC PORT SHOWN FOR PDF PRINTING) -->
+    <!-- ========================================================================== -->
+    <div id="print-report-container">
+        <!-- Dyn. Populated on Report print action -->
+        <div class="print-header">
+            <div class="print-logo-box">
+                <div class="print-logo-circle" style="border:none !important;"><img src="logo_btp.png" alt="Logo" style="width:50px; height:50px; object-fit:contain;"></div>
+                <div class="print-lab-details">
+                    <span class="print-lab-name" id="print-lbl-lab-name">Laboratoire BTP National</span>
+                    <span class="print-lab-sub">Contrôle de Conformité des Matériaux Routiers & Génie Civil</span>
+                </div>
+            </div>
+            <div class="print-doc-meta">
+                <strong>Rapport d'Essai N°:</strong> <span id="print-val-id">PV-12345</span><br>
+                <strong>Date de Calcul:</strong> <span id="print-val-date">26/05/2026</span><br>
+                <strong>Technicien:</strong> <span id="print-val-tech">Technicien Supérieur</span><br>
+                <strong>Matricule:</strong> <span id="print-val-license">LAB-2026-X04</span>
+            </div>
+        </div>
+
+        <div class="print-title" id="print-val-test-name">
+            ESSAI DE TENEUR EN EAU - NM 13.152
+        </div>
+
+        <div class="print-section">
+            <h4 class="print-section-title">1. Informations Générales & Projet</h4>
+            <table class="print-table">
+                <tr>
+                    <th style="width: 25%;">Chantier / Projet :</th>
+                    <td id="print-val-project" style="width: 75%;">Projet Autoroute Fès-Taounate</td>
+                </tr>
+                <tr>
+                    <th>Norme d'Essai :</th>
+                    <td id="print-val-norm">NM 13.152 (2022)</td>
+                </tr>
+                <tr>
+                    <th>Catégorie de Matériau :</th>
+                    <td id="print-val-category">🌍 Essais Sol</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="print-section">
+            <h4 class="print-section-title">2. Paramètres d'Entrée & Mesures de Laboratoire</h4>
+            <table class="print-table" id="print-val-inputs-table">
+                <!-- Renders key-value list of inputs -->
+            </table>
+        </div>
+
+        <div class="print-section" id="print-proctor-canvas-section" style="display: none;">
+            <h4 class="print-section-title">3. Courbe de Compactage Proctor</h4>
+            <div style="text-align: center; margin: 10px 0;">
+                <canvas id="print-proctor-canvas" width="400" height="180" style="border:1px solid #ddd;"></canvas>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h4 class="print-section-title">4. Résultats Calculés & Interprétation</h4>
+            <table class="print-table" id="print-val-outputs-table">
+                <!-- Renders key-value list of calculated outputs -->
+            </table>
+        </div>
+
+        <div class="print-conformity-box" id="print-conformity-box">
+            CONFORME ✅
+        </div>
+
+        <div class="print-signature-row">
+            <div class="print-sig-box">
+                Le Technicien Opérateur
+            </div>
+            <div class="print-sig-box">
+                Le Chef de Laboratoire (Visa & Signature)
+            </div>
+        </div>
+
+        <div class="print-footer">
+            LabQualité BTP - Logiciel d'interprétation d'essais géotechniques conforme aux normes marocaines (NM) et européennes (NF EN). Document généré numériquement le <span class="print-date-stamp">26/05/2026</span>.
+        </div>
+    </div>
+
+    <!-- Main Logic Script Import -->
+    <script src="app.js"></script>
+</body>
+</html>
