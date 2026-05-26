@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LabQualité BTP - Contrôle Qualité Laboratoire</title>
+    <!-- PWA Manifest & Meta -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1565C0">
+    <meta name="description" content="Application professionnelle de contrôle qualité pour laboratoire BTP. 44 essais normalisés, 11 calculatrices scientifiques.">
+    <link rel="apple-touch-icon" href="logo_btp.png">
     <!-- CSS Design System Import -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -442,5 +447,15 @@
 
     <!-- Main Logic Script Import -->
     <script src="app.js"></script>
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('[PWA] Service Worker enregistré:', reg.scope))
+            .catch(err => console.log('[PWA] Erreur SW:', err));
+        });
+      }
+    </script>
 </body>
 </html>

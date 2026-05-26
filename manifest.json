@@ -1,0 +1,37 @@
+{
+  "name": "LabQualité BTP - Contrôle Qualité Laboratoire",
+  "short_name": "LabQualité BTP",
+  "description": "Application professionnelle de contrôle qualité pour laboratoire BTP. 44 essais normalisés, 11 calculatrices scientifiques, rapports PDF et fonctionnement hors-ligne.",
+  "start_url": "/labqualite-btp/index.html",
+  "scope": "/labqualite-btp/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1565C0",
+  "background_color": "#0D1B2A",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "logo_btp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo_btp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "logo_btp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Écran d'accueil LabQualité BTP"
+    }
+  ]
+}
